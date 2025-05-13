@@ -14,6 +14,7 @@ class RMCGApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'RMCG',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
       home: const CharacterCardScreen(),
     );
