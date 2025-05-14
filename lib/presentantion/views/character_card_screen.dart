@@ -130,16 +130,6 @@ class _CharacterCardScreenState extends State<CharacterCardScreen> {
                               : Colors.white.withOpacity(0.2),
                       width: 2,
                     ),
-                    boxShadow:
-                        _isSearchFocused
-                            ? [
-                              BoxShadow(
-                                color: Colors.red.withOpacity(0.3),
-                                blurRadius: 12,
-                                spreadRadius: 2,
-                              ),
-                            ]
-                            : [],
                   ),
                   child: TextField(
                     controller: _searchController,
@@ -155,9 +145,7 @@ class _CharacterCardScreenState extends State<CharacterCardScreen> {
                       prefixIcon: Icon(
                         Icons.search,
                         color:
-                            _isSearchFocused
-                                ? Colors.red[300]
-                                : Colors.white70,
+                            _isSearchFocused ? Colors.red[300] : Colors.white70,
                       ),
                       suffixIcon:
                           _searchController.text.isNotEmpty
