@@ -36,14 +36,7 @@ class CartaPersonagem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: statusColor.withOpacity(0.4),
-            blurRadius: 24,
-            spreadRadius: 4,
-            offset: const Offset(0, 8),
-          ),
-        ],
+        color: statusColor,
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
@@ -51,14 +44,7 @@ class CartaPersonagem extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    const Color(0xFF1E2A3A),
-                    const Color(0xFF0D1218),
-                  ],
-                ),
+                color: const Color(0xFF1E2A3A),
                 border: Border.all(
                   color: statusColor.withOpacity(0.8),
                   width: 2.5,
@@ -71,18 +57,16 @@ class CartaPersonagem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 _buildCardHeader(statusColor),
-                
+
                 _buildCharacterImage(statusColor, statusText, isWide),
-                
+
                 _buildNameBanner(statusColor),
-                
+
                 _buildCharacterInfo(),
-                
+
                 _buildCharacterStats(statusColor),
               ],
             ),
-
-            ...buildCornerAccents(statusColor),
           ],
         ),
       ),
@@ -92,18 +76,7 @@ class CartaPersonagem extends StatelessWidget {
   Widget _buildCardHeader(Color statusColor) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: [
-            statusColor.withOpacity(0.9),
-            statusColor.withOpacity(0.4),
-            Colors.transparent,
-          ],
-          stops: const [0.0, 0.5, 1.0],
-        ),
-      ),
+      decoration: BoxDecoration(color: statusColor),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -138,8 +111,8 @@ class CartaPersonagem extends StatelessWidget {
                       character.gender.toLowerCase() == 'male'
                           ? Icons.male
                           : character.gender.toLowerCase() == 'female'
-                              ? Icons.female
-                              : Icons.question_mark,
+                          ? Icons.female
+                          : Icons.question_mark,
                       color: Colors.white,
                       size: 16,
                     ),
@@ -186,7 +159,11 @@ class CartaPersonagem extends StatelessWidget {
     );
   }
 
-  Widget _buildCharacterImage(Color statusColor, String statusText, bool isWide) {
+  Widget _buildCharacterImage(
+    Color statusColor,
+    String statusText,
+    bool isWide,
+  ) {
     return SizedBox(
       height: isWide ? 380 : 280,
       child: Stack(
@@ -216,11 +193,14 @@ class CartaPersonagem extends StatelessWidget {
                       if (loadingProgress == null) return child;
                       return Center(
                         child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(statusColor),
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                              : null,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            statusColor,
+                          ),
+                          value:
+                              loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
                         ),
                       );
                     },
@@ -263,7 +243,10 @@ class CartaPersonagem extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.7),
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: statusColor.withOpacity(0.8), width: 1.5),
+                border: Border.all(
+                  color: statusColor.withOpacity(0.8),
+                  width: 1.5,
+                ),
               ),
               child: Row(
                 children: [
@@ -370,13 +353,7 @@ class CartaPersonagem extends StatelessWidget {
           fontWeight: FontWeight.bold,
           fontSize: 24,
           letterSpacing: 1.2,
-          shadows: [
-            Shadow(
-              blurRadius: 8.0,
-              color: Colors.black.withOpacity(0.7),
-              offset: const Offset(2, 2),
-            ),
-          ],
+          
         ),
       ),
     );
@@ -388,11 +365,7 @@ class CartaPersonagem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoRow(
-            Icons.public,
-            'Origem:',
-            character.origin.name,
-          ),
+          _buildInfoRow(Icons.public, 'Origem:', character.origin.name),
           const SizedBox(height: 14),
           _buildInfoRow(
             Icons.location_on,
@@ -422,17 +395,24 @@ class CartaPersonagem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildStatItem(Icons.movie, 'Episódios', character.episode.length.toString(), statusColor),
           _buildStatItem(
-              Icons.auto_awesome, 
-              'Aparição', 
-              _calculateAppearanceRating(character.episode.length), 
-              statusColor),
+            Icons.movie,
+            'Episódios',
+            character.episode.length.toString(),
+            statusColor,
+          ),
           _buildStatItem(
-              Icons.calendar_today, 
-              'Criado', 
-              _formatDate(character.created), 
-              statusColor),
+            Icons.auto_awesome,
+            'Aparição',
+            _calculateAppearanceRating(character.episode.length),
+            statusColor,
+          ),
+          _buildStatItem(
+            Icons.calendar_today,
+            'Criado',
+            _formatDate(character.created),
+            statusColor,
+          ),
         ],
       ),
     );
@@ -481,7 +461,12 @@ class CartaPersonagem extends StatelessWidget {
     );
   }
 
-  Widget _buildStatItem(IconData icon, String label, String value, Color statusColor) {
+  Widget _buildStatItem(
+    IconData icon,
+    String label,
+    String value,
+    Color statusColor,
+  ) {
     return Column(
       children: [
         Container(
@@ -513,39 +498,6 @@ class CartaPersonagem extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  List<Widget> buildCornerAccents(Color statusColor) {
-    return [
-      Positioned(
-        top: 0,
-        left: 0,
-        child: Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(color: statusColor, width: 3),
-              left: BorderSide(color: statusColor, width: 3),
-            ),
-          ),
-        ),
-      ),
-      Positioned(
-        bottom: 0,
-        right: 0,
-        child: Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(color: statusColor, width: 3),
-              right: BorderSide(color: statusColor, width: 3),
-            ),
-          ),
-        ),
-      ),
-    ];
   }
 
   String _traduzirGenero(String genero) {

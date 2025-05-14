@@ -97,15 +97,8 @@ class _CharacterCardScreenState extends State<CharacterCardScreen> {
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: Colors.green[300],
+                          color: Colors.white,
                           letterSpacing: 1.2,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 10.0,
-                              color: Colors.green.withOpacity(0.5),
-                              offset: const Offset(0, 0),
-                            ),
-                          ],
                         ),
                       ),
                       IconButton(
@@ -117,6 +110,7 @@ class _CharacterCardScreenState extends State<CharacterCardScreen> {
                 ),
 
                 AnimatedContainer(
+                  alignment: Alignment.center,
                   duration: const Duration(milliseconds: 300),
                   margin: EdgeInsets.symmetric(
                     horizontal: 16,
@@ -132,7 +126,7 @@ class _CharacterCardScreenState extends State<CharacterCardScreen> {
                     border: Border.all(
                       color:
                           _isSearchFocused
-                              ? Colors.green.withOpacity(0.8)
+                              ? Colors.red.withOpacity(0.8)
                               : Colors.white.withOpacity(0.2),
                       width: 2,
                     ),
@@ -140,7 +134,7 @@ class _CharacterCardScreenState extends State<CharacterCardScreen> {
                         _isSearchFocused
                             ? [
                               BoxShadow(
-                                color: Colors.green.withOpacity(0.3),
+                                color: Colors.red.withOpacity(0.3),
                                 blurRadius: 12,
                                 spreadRadius: 2,
                               ),
@@ -162,7 +156,7 @@ class _CharacterCardScreenState extends State<CharacterCardScreen> {
                         Icons.search,
                         color:
                             _isSearchFocused
-                                ? Colors.green[300]
+                                ? Colors.red[300]
                                 : Colors.white70,
                       ),
                       suffixIcon:
@@ -285,4 +279,3 @@ class _CharacterCardScreenState extends State<CharacterCardScreen> {
     );
   }
 }
-
